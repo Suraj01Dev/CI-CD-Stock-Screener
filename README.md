@@ -183,3 +183,8 @@ sonar-scanner \
   ```bash
 	apt-get install docker.io
   ```
+
+  To run SonarQube as container execute the below command.
+  ```bash
+	docker run -d --name sonarqube -p 9000:9000 -p 9092:9092
+  ```
