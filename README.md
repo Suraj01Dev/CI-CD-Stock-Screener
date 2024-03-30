@@ -1,4 +1,8 @@
 # CI/CD Pipeline for Stock Screener Application
+_Devops Portfolio Project 2_
+
+![image](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/assets/120789150/e4b64d0c-ae4c-4dea-9aaf-fd389a0fd6b3)
+
 ## Introduction
 This project focuses on establishing a Continuous Integration/Continuous Deployment (CI/CD) pipeline for the Stock Screener application. 
 The Stock Screener is a web application built on the Python Streamlit framework, designed to retrieve financial ratios of stocks for fundamental analysis. 
