@@ -13,5 +13,11 @@ pipeline{
                 git branch: 'main', url: 'https://github.com/Suraj01Dev/CI-CD-Stock-Screener'
             }
         }
+
+        stage('Testing stock_screeener') {
+            steps {
+		sh "bash stock_screener_test.sh"
+            }
+        }
     }    
 }
