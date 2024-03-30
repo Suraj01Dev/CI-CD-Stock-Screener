@@ -85,4 +85,54 @@ To verify this let's manually SSH into the Jenkins node, and list the files in t
 
 ![image](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/assets/120789150/4668fe8f-48b8-4fb7-9df4-72d3c81c8924)
 
+Now let's add the source code of the Stock-Screener application in the GitHub repo. The source code for the application ([link](https://github.com/Suraj01Dev/stock_screener/tree/main)).
+
+
+## Creating the testing script
+
+### Prerequisites
+Login into the Jenkins node and install the below prerequisites.
+
+- Installing Bandit
+  ```bash
+  apt-get install bandit
+  ```
+- Installing pylint
+  ```bash
+  pip3 install pylint
+  ```
+
+### Scripting
+
+Bandit is used for finding security vulnerabilities in the Python code.
+```bash
+bandit --format json --output bandit-report.json --recursive stock_screener
+```
+
+
+Pylint is used for static code analysis.
+```bash
+pylint stock_screener -r n --msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}" > pylint-report.txt 
+```
+
+Combining the above commands, let's go ahead and create a bash script.
+
+```bash
+#!/bin/bash
+bandit --format json --output bandit-report.json --recursive stock_app
+if [[ $? -ne 0 ]]; then
+	exit 1
+fi
+
+pylint stock_app -r n --msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}" > pylint-report.txt 
+if [[ $? -ne 0 ]]; then
+	exit 1
+fi
+
+exit 0
+
+```
+
+Let's go ahead and add this script in the CI-CD-Stock-Screener repo as **stock_screener_test.sh**.
+
 
