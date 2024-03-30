@@ -17,15 +17,7 @@
             steps {
             cleanWs()
             }
-        }        stage("Building docker"){
-            steps{
-
-                sh '''
-                sudo docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .
-                '''
-
-            }
-        }
+        }        
         stage('Git Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/Suraj01Dev/CI-CD-Stock-Screener'
