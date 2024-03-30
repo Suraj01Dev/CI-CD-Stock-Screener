@@ -1,4 +1,14 @@
     pipeline{
+	    
+    environment{
+        APPNAME="stock_screener"
+        RELEASE="1.0.0"
+        DOCKER_USER="suraj01dev"
+        DOCKER_PASS="dockerhub"
+        IMAGE_NAME="${DOCKER_USER}"+"/"+"${APPNAME}"
+        IMAGE_TAG="${RELEASE}"+"-"+"${BUILD_NUMBER}"
+    }
+	    
     agent{
         label "node1"
     }
@@ -37,5 +47,23 @@
                         waitForQualityGate abortPipeline: true
                     }
                 }
+	    
+        stage("Pushing the stock_screener docker image"){
+            steps{
+                withCredentials([string(credentialsId: 'docker_pass', variable: 'docker_pass_var')]) {
+
+                    sh '''
+                    sudo docker login -u suraj01dev -p ${docker_pass_var}
+                    '''
+
+                    sh '''
+                    sudo docker push ${IMAGE_NAME}:${IMAGE_TAG}
+                    '''
+                
+                        }
+
+            }
+        }
+
     }    
 }
