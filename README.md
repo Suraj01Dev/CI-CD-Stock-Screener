@@ -141,7 +141,7 @@ Let's go ahead and add this script in the CI-CD-Stock-Screener repo as **stock_s
 
 Now let's add this testing step in the Jenkinsfile.
 
-#### Stage Testing stock_screener
+#### Stage:  Testing stock_screener
 
 ```groovy
         stage('Testing stock_screeener') {
@@ -224,7 +224,7 @@ sonar.python.bandit.reportPaths = bandit-report.json
 
 Adding the sonar scanner in the Jenkinsfile.
 
-#### Stage SonarQube Code Analysis
+#### Stage: SonarQube Code Analysis
 
 ```groovy
 
@@ -246,7 +246,7 @@ Adding the sonar scanner in the Jenkinsfile.
 ### Creating a SonarQube Quality Gate
 To create a SonarQube Quality Gate follow this [article](https://tomgregory.com/jenkins/sonarqube-quality-gates-in-jenkins-build-pipeline/#full-worked-example). This explains how to create a webhook and integrate it with Jenkins.
 
-#### Stage Quality Gate
+#### Stage: Quality Gate
 
 ```groovy
         stage("Quality gate") {
@@ -284,7 +284,7 @@ docker push stock_screener
 
 Let's create a Jenkins stage with the above command.
 
-#### Stage Pushing the stock_screener docker image
+#### Stage: Pushing the stock_screener docker image
 ```groovy
         stage("Pushing the stock_screener docker image"){
             steps{
@@ -297,9 +297,7 @@ Let's create a Jenkins stage with the above command.
                     sh '''
                     sudo docker push ${IMAGE_NAME}:${IMAGE_TAG}
                     '''
-                
                         }
-
             }
         }
 ```
