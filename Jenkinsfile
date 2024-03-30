@@ -17,6 +17,14 @@
             steps {
             cleanWs()
             }
+        }        stage("Building docker"){
+            steps{
+
+                sh '''
+                sudo docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .
+                '''
+
+            }
         }
         stage('Git Checkout') {
             steps {
@@ -47,6 +55,16 @@
                         waitForQualityGate abortPipeline: true
                     }
                 }
+	    
+        stage("Building docker"){
+            steps{
+
+                sh '''
+                sudo docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .
+                '''
+
+            }
+        }
 	    
         stage("Pushing the stock_screener docker image"){
             steps{
