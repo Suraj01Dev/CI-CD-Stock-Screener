@@ -3,11 +3,12 @@ pipeline{
         label "node1"
     }
     stages{
-        stage("git checkout")
-            {
-                steps{
-                    git "https://github.com/Suraj01Dev/CI-CD-Stock-Screener"
-                }
+        stage('Git Checkout') {
+            steps {
+                git 'https://github.com/Suraj01Dev/Stock_Screener_UI'
             }
+            
+
+        }
     }    
 }
