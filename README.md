@@ -93,6 +93,10 @@ Now let's add the source code of the Stock-Screener application in the GitHub re
 ### Prerequisites
 Login into the Jenkins node and install the below prerequisites.
 
+- Installing Python dependencies
+  ```bash
+  pip3 install requests pandas streamlit
+  ```
 - Installing Bandit
   ```bash
   apt-get install bandit
@@ -163,3 +167,13 @@ pipeline{
 }
 ```
 
+## Integrating SonarQube
+sqp_0a464021d32ab3b6f36214e488ddd6fe892b80b3
+
+sonar-scanner \
+  -Dsonar.projectKey=stock_screener \
+  -Dsonar.sources=. \
+  -Dsonar.host.url=http://192.168.122.98:9000 \
+  -Dsonar.token=sqp_0a464021d32ab3b6f36214e488ddd6fe892b80b3
+
+  
