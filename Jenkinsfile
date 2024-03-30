@@ -74,6 +74,12 @@
 
             }
         }
+        stage("Deploy in k8s"){
+            steps{
+                       sh "scp pods.yaml suraj@192.168.122.2:/home/suraj"                // some block
+                       sh "ssh suraj@192.168.122.2 kubectl create -f deployment.yaml"
+                }
+            }
 
     }    
 }
