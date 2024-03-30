@@ -25,7 +25,7 @@
                         dir("${WORKSPACE}"){
                         script {
                             def scannerHome = tool name: 'sonar_scanner'
-                            withSonarQubeEnv('sonar_stock_screener') {
+                            withSonarQubeEnv('sonar-server') {
                                 sh "${scannerHome}/bin/sonar-scanner"
                             }
                         }
