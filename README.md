@@ -267,7 +267,7 @@ Adding the sonar scanner in the Jenkinsfile.
                         dir("${WORKSPACE}"){
                         script {
                             def scannerHome = tool name: 'sonar_scanner'
-                            withSonarQubeEnv('sonar_stock_screener') {
+                            withSonarQubeEnv('sonar-server') {
                                 sh "${scannerHome}/bin/sonar-scanner"
                             }
                         }
@@ -278,5 +278,17 @@ Adding the sonar scanner in the Jenkinsfile.
 }
 ```
 
+### Creating a SonarQube Quality Gate
+To create a SonarQube Quality Gate follow this [article](https://tomgregory.com/jenkins/sonarqube-quality-gates-in-jenkins-build-pipeline/#full-worked-example). This explains how to create a webhook and integrate it with Jenkins.
+
+#### Stage Quality Gate
+
+```groovy
+        stage("Quality gate") {
+                    steps {
+                        waitForQualityGate abortPipeline: true
+                    }
+	}
+```
 
 
