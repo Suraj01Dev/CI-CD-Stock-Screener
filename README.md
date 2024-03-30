@@ -401,11 +401,13 @@ This whole project is a End to End complete pipeline which implements various to
 - Python
 - Bash
 - Jenkins
+- SonarQube
 - Networking
 - Scripting
 - Testing
 - Containerization
 - Deployment
+The project starts with cloning a GitHub repository, then tests the application  using SonarQube. After testing passes it moves to building the Docker image and pushes it to dockerhub. The next stage is deployment where the image pushed in the previous stage is pulled and deployed into a Kubernetes cluster.
 
 ## References
 - https://www.youtube.com/watch?v=PWhqbpVbaTo&list=PLH1ul2iNXl7txKuhhDMKenYOThDww6x8S
