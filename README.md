@@ -36,6 +36,11 @@ The pipeline integrates various tools and technologies such as Jenkins, Docker, 
 
 ## Setting up Jenkins
 
+This section consists of 
+- Prerequisites
+- Creating a pipeline project
+- Jenkinsfile Build
+
 ### Prerequisites
 - Installing Jenkins [link](https://phoenixnap.com/kb/install-jenkins-ubuntu)
 - Setting up SSH Jenkins Node [link](https://devopscube.com/setup-slaves-on-jenkins-2/)
@@ -61,6 +66,8 @@ So, to make things more organized let's create a git repository to get the pipel
 ![image](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/assets/120789150/7a4965d4-2763-49e2-81ff-6395f3502498)
 
 After creating the repository, let's first create a **Jenkinsfile** to code the pipeline script.
+
+### Jenkinsfile Build
 
 ```groovy
 pipeline{
@@ -94,6 +101,11 @@ Now let's add the source code of the Stock-Screener application in the GitHub re
 
 ## Creating the testing script
 
+This section consists of 
+- Prerequisites
+- Scripting
+- Jenkinsfile Build
+  
 ### Prerequisites
 Login into the Jenkins node and install the below prerequisites.
 
@@ -145,6 +157,7 @@ Let's go ahead and add this script in the CI-CD-Stock-Screener repo as **stock_s
 
 Now let's add this testing step in the Jenkinsfile.
 
+### Jenkinsfile Build
 #### Stage:  Testing stock_screener
 
 ```groovy
@@ -157,13 +170,12 @@ Now let's add this testing step in the Jenkinsfile.
 ```
 
 ## Integrating SonarQube
-sqp_0a464021d32ab3b6f36214e488ddd6fe892b80b3
 
-sonar-scanner \
-  -Dsonar.projectKey=stock_screener \
-  -Dsonar.sources=. \
-  -Dsonar.host.url=http://192.168.122.98:9000 \
-  -Dsonar.token=sqp_a1552040b1d2d4207794898c41a0d905585c5fcf
+This section consists of 
+- Installing SonarQube
+- Creating the project in SonarQube
+- Integrating SonarQube with Jenkins
+- Jenkinsfile Build
 
   ### Installing SonarQube
 
@@ -228,6 +240,7 @@ sonar.python.bandit.reportPaths = bandit-report.json
 
 Adding the sonar scanner in the Jenkinsfile.
 
+### Jenkinsfile Build
 #### Stage: SonarQube Code Analysis
 
 ```groovy
@@ -381,6 +394,24 @@ Let's finally complete our Jenkins pipeline by implementing the deployment in th
             }
 ```
 
+## Summary
+This whole project is a End to End complete pipeline which implements various tools and concepts such as 
+- Docker
+- Kubernetes
+- Python
+- Bash
+- Jenkins
+- Networking
+- Scripting
+- Testing
+- Containerization
+- Deployment
 
+## References
+- https://www.youtube.com/watch?v=PWhqbpVbaTo&list=PLH1ul2iNXl7txKuhhDMKenYOThDww6x8S
+- https://dev.to/mmphego/how-i-configured-sonarqube-for-python-code-analysis-with-jenkins-and-docker-28fm
+- https://tomgregory.com/jenkins/sonarqube-quality-gates-in-jenkins-build-pipeline/#full-worked-example
+- https://dev.to/mmphego/how-i-configured-sonarqube-for-python-code-analysis-with-jenkins-and-docker-28fm
+- https://github.com/tngTUDOR/pycodeq
 
 
