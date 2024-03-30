@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stock-deployment
+  labels:
+    app: stock-screener-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: stock-screener
+  template:
+    metadata:
+      labels:
+        app: stock-screener
+    spec:
+      containers:
+      - name: stock-screener-ui
+        image: suraj01dev/stock_screener
+        ports:
+        - containerPort: 8501
