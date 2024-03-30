@@ -119,12 +119,12 @@ Combining the above commands, let's go ahead and create a bash script.
 
 ```bash
 #!/bin/bash
-bandit --format json --output bandit-report.json --recursive stock_app
+bandit --format json --output bandit-report.json --recursive stock_screener
 if [[ $? -ne 0 ]]; then
 	exit 1
 fi
 
-pylint stock_app -r n --msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}" > pylint-report.txt 
+pylint stock_screener -r n --msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}" > pylint-report.txt 
 if [[ $? -ne 0 ]]; then
 	exit 1
 fi
@@ -135,4 +135,31 @@ exit 0
 
 Let's go ahead and add this script in the CI-CD-Stock-Screener repo as **stock_screener_test.sh**.
 
+Now let's add this testing step in the Jenkinsfile.
+
+```groovy
+pipeline{
+    agent{
+        label "node1"
+    }
+    stages{
+        stage('Clean Workspace') {
+            steps {
+            cleanWs()
+            }
+        }
+        stage('Git Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Suraj01Dev/CI-CD-Stock-Screener'
+            }
+        }
+
+        stage('Testing stock_screeener') {
+            steps {
+		sh "bash stock_screener_test.sh"
+            }
+        }
+    }    
+}
+```
 
