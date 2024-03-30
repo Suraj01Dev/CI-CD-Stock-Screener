@@ -174,7 +174,7 @@ sonar-scanner \
   -Dsonar.projectKey=stock_screener \
   -Dsonar.sources=. \
   -Dsonar.host.url=http://192.168.122.98:9000 \
-  -Dsonar.token=sqp_0a464021d32ab3b6f36214e488ddd6fe892b80b3
+  -Dsonar.token=sqp_a1552040b1d2d4207794898c41a0d905585c5fcf
 
   ### Installing SonarQube
 
@@ -184,7 +184,99 @@ sonar-scanner \
 	apt-get install docker.io
   ```
 
-  To run SonarQube as container execute the below command.
+  To run SonarQube as a container execute the below command.
   ```bash
 	docker run -d --name sonarqube -p 9000:9000 -p 9092:9092
   ```
+
+The SonarQube UI will be running at port 9000 in the Jenkins node.
+
+
+### Creating the project in SonarQube
+
+![image](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/assets/120789150/bdb9a37f-462a-4242-8737-2e613e4b2d84)
+
+![image](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/assets/120789150/dd0301a7-ec2c-4e08-8967-f4b94d9fda86)
+
+Creating a project locally.
+![image](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/assets/120789150/405cffa6-e4fe-45da-babc-075dfb2d697c)
+
+Creating a token.
+![image](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/assets/120789150/97f449ac-4dc4-4599-a5db-df42945a0f90)
+
+![image](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/assets/120789150/4fbf2848-1462-4f62-aede-d89973f56452)
+
+To execute the scanner, this command can be executed
+
+```bash
+sonar-scanner \
+  -Dsonar.projectKey=stock_screener \
+  -Dsonar.sources=. \
+  -Dsonar.host.url=http://192.168.122.98:9000 \
+  -Dsonar.token=sqp_a1552040b1d2d4207794898c41a0d905585c5fcf
+```
+and, **sqp_a1552040b1d2d4207794898c41a0d905585c5fcf** is the authentication token. Inorder to execute this command the sonar scanner should be installed in the Jenkins node.
+
+### Integrating SonarQube with Jenkins
+
+Follow this [article](https://sunilhari.medium.com/how-to-integrate-sonarqube-and-jenkins-721d5efd3cb6) to integrate SonarQube with Jenkins.
+
+This article covers the following steps:
+
+- Installing the Sonar Scanner using Jenkins.
+- Connecting the Sonar instance with the Jenkins instance.
+- Creating the secret text with the sonar authentication token in Jenkins.
+
+Let's go ahead and create the **sonar-project.properties** file. This file should also be checked in the repository. This property file will be used by the sonar scanner.
+
+```
+sonar.projectKey = stock_screener
+sonar.sources = .
+sonar.language =  py
+sonar.python.pylint.reportPath = pylint-report.txt
+sonar.python.bandit.reportPaths = bandit-report.json
+```
+
+Adding the sonar scanner in the Jenkinsfile.
+
+```groovy
+    pipeline{
+    agent{
+        label "node1"
+    }
+    stages{
+        stage('Clean Workspace') {
+            steps {
+            cleanWs()
+            }
+        }
+        stage('Git Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Suraj01Dev/CI-CD-Stock-Screener'
+            }
+        }
+
+        stage('Testing stock_screeener') {
+            steps {
+		sh "bash stock_screener_test.sh"
+            }
+        }
+
+        stage('SonarQube Code Analysis') {
+                    steps {
+                        dir("${WORKSPACE}"){
+                        script {
+                            def scannerHome = tool name: 'sonarqube-scanner-latest'
+                            withSonarQubeEnv('sonar_stock_screener') {
+                                sh "${scannerHome}/bin/sonar-scanner"
+                            }
+                        }
+                    }
+                    }
+            }
+    }    
+}
+```
+
+
+
