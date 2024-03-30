@@ -39,11 +39,39 @@ The pipeline integrates various tools and technologies such as Jenkins, Docker, 
 
 ### Creating a pipeline project
 
+**Creating a new item**
+
 ![image](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/assets/120789150/cf288898-4cc6-4ec8-bf0b-f09e73bb52ac)
 
+**Running a Hello World Pipeline Script**
+
+![image](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/assets/120789150/bc704578-6c01-4478-bed1-1bb54bdaf3ef)
+
+**Trail run successful**
+
+![image](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/assets/120789150/d59b7c85-788f-4f5d-838f-3a00208eb67d)
 
   
+So, to make things more organized let's create a git repository to get the pipeline script from SCM. 
 
+![image](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/assets/120789150/7a4965d4-2763-49e2-81ff-6395f3502498)
+
+After creating the repository, let's first create a **Jenkinsfile** to code the pipeline script.
+
+```groovy
+pipeline{
+    agent{
+        label "node1"
+    }
+    stages{
+        stage('Git Checkout') {
+            steps {
+                git 'https://github.com/Suraj01Dev/CI-CD-Stock-Screener'
+            }
+        }
+    }    
+}
+```
 
 
 
