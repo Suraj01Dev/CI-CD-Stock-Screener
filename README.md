@@ -322,4 +322,13 @@ Let's create a Jenkins stage with the above command.
         }
 ```
 
+## Deployment into K8s
+This final section is all about the deployment of the container into k8s. This section consist of the following steps:
+- Creating a deployment.yaml file.
+- Creating a passwordless SSH connection to the minikube node.
+- Moving the deployment.yaml file into the minikube node.
+- Finally create a deployment in the k8s cluster.
 
+
+
+- 
