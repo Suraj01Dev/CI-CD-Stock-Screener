@@ -197,7 +197,7 @@ The SonarQube UI will be running at port 9000 in the Jenkins node.
 
 ![image](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/assets/120789150/bdb9a37f-462a-4242-8737-2e613e4b2d84)
 
-![image](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/assets/120789150/dd0301a7-ec2c-4e08-8967-f4b94d9fda86)
+![image](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/assets/120789150/5afa1237-6be8-4a30-ad07-13507da9a829)
 
 Creating a project locally.
 ![image](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/assets/120789150/405cffa6-e4fe-45da-babc-075dfb2d697c)
@@ -205,7 +205,7 @@ Creating a project locally.
 Creating a token.
 ![image](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/assets/120789150/97f449ac-4dc4-4599-a5db-df42945a0f90)
 
-![image](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/assets/120789150/4fbf2848-1462-4f62-aede-d89973f56452)
+![image](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/assets/120789150/f3c9cf31-6c0b-4eba-abc2-79768ce3c22f)
 
 To execute the scanner, this command can be executed
 
