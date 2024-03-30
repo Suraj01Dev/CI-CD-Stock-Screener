@@ -323,12 +323,60 @@ Let's create a Jenkins stage with the above command.
 ```
 
 ## Deployment into K8s
-This final section is all about the deployment of the container into k8s. This section consist of the following steps:
+This final section is all about the deployment of the container into k8s. This section consists of the following steps:
 - Creating a deployment.yaml file.
-- Creating a passwordless SSH connection to the minikube node.
-- Moving the deployment.yaml file into the minikube node.
-- Finally create a deployment in the k8s cluster.
+- Creating a passwordless SSH connection to the Minikube node.
+- Deploying into the minikube server.
+
+
+### Creating a deployment.yaml file
+
+The first step in deployment is about creating a [deployment.yaml](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/blob/main/deployment.yaml) file. This Kubernetes deployment contains two replicas and the image used is **suraj01dev/stock_screener** which was pushed into DockerHub in the previous step.
+
+
+### Creating a passwordless SSH connection to the Minikube node
+
+Passwordless SSH Login
+To enable password-less login we have to create a public and private key in the Jenkins node and copy the public key to the minikube node.
+
+```
+ssh-keygen
+```
+The above command will create a public and private key under the ~/.ssh directory. To copy this public key to all the target nodes ssh-copy-id command has to be used.
+
+```
+ssh-copy-id -i ~/.ssh/id_rsa.pub suraj@minikube_server
+```
+
+### Deployment into the Minikube server
+
+The deployment in this case consists of two steps,
+- Moving the deployment.yaml into the Minikube server.
+- Creating the deployment.
+
+SCP is used to move the deployment.yaml into the minikube server.
+```bash
+scp deployment.yaml suraj@192.168.122.2:/home/suraj
+```
+
+To create a deployment in Kubernetes.
+```bash
+kubectl create -f deployment.yaml
+```
+
+Let's finally complete our Jenkins pipeline by implementing the deployment in the Jenkinsfile.
+
+#### Stage: Deploy in k8's
+
+```groovy
+        stage("Deploy in k8s"){
+            steps{
+                       sh "scp pods.yaml suraj@192.168.122.2:/home/suraj"                // some block
+                       sh "ssh suraj@192.168.122.2 kubectl create -f deployment.yaml"
+                }
+            }
+```
 
 
 
-- 
+
