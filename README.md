@@ -195,15 +195,15 @@ The SonarQube UI will be running at port 9000 in the Jenkins node.
 
 ### Creating the project in SonarQube
 
-![image](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/assets/120789150/bdb9a37f-462a-4242-8737-2e613e4b2d84)
+![image](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/assets/120789150/155d44e4-d390-4f93-b7bd-0a3beb3086c4)
 
 ![image](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/assets/120789150/5afa1237-6be8-4a30-ad07-13507da9a829)
 
 Creating a project locally.
-![image](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/assets/120789150/405cffa6-e4fe-45da-babc-075dfb2d697c)
+![image](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/assets/120789150/7e7a322b-fa7b-4fa2-bc6d-ba0a273a42cc)
 
 Creating a token.
-![image](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/assets/120789150/97f449ac-4dc4-4599-a5db-df42945a0f90)
+![Screenshot from 2024-03-30 11-57-42](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/assets/120789150/9ec74c0a-f66d-4eea-b533-6c91ad6d6efc)
 
 ![image](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/assets/120789150/f3c9cf31-6c0b-4eba-abc2-79768ce3c22f)
 
