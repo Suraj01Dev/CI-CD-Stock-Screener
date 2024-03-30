@@ -27,7 +27,7 @@ The pipeline integrates various tools and technologies such as Jenkins, Docker, 
 - Setting up Jenkins
 - Creating the testing script
 - Integrating SonarQube
-- Containerization and pushing
+- Containerization 
 - Deployment into K8s
 
 ## Setting up Jenkins
@@ -141,30 +141,15 @@ Let's go ahead and add this script in the CI-CD-Stock-Screener repo as **stock_s
 
 Now let's add this testing step in the Jenkinsfile.
 
-```groovy
-pipeline{
-    agent{
-        label "node1"
-    }
-    stages{
-        stage('Clean Workspace') {
-            steps {
-            cleanWs()
-            }
-        }
-        stage('Git Checkout') {
-            steps {
-                git branch: 'main', url: 'https://github.com/Suraj01Dev/CI-CD-Stock-Screener'
-            }
-        }
+#### Stage Testing stock_screener
 
+```groovy
         stage('Testing stock_screeener') {
             steps {
 		sh "bash stock_screener_test.sh"
             }
         }
-    }    
-}
+    
 ```
 
 ## Integrating SonarQube
@@ -239,28 +224,9 @@ sonar.python.bandit.reportPaths = bandit-report.json
 
 Adding the sonar scanner in the Jenkinsfile.
 
-```groovy
-    pipeline{
-    agent{
-        label "node1"
-    }
-    stages{
-        stage('Clean Workspace') {
-            steps {
-            cleanWs()
-            }
-        }
-        stage('Git Checkout') {
-            steps {
-                git branch: 'main', url: 'https://github.com/Suraj01Dev/CI-CD-Stock-Screener'
-            }
-        }
+#### Stage SonarQube Code Analysis
 
-        stage('Testing stock_screeener') {
-            steps {
-		sh "bash stock_screener_test.sh"
-            }
-        }
+```groovy
 
         stage('SonarQube Code Analysis') {
                     steps {
@@ -274,8 +240,7 @@ Adding the sonar scanner in the Jenkinsfile.
                     }
                     }
             }
-    }    
-}
+
 ```
 
 ### Creating a SonarQube Quality Gate
@@ -289,6 +254,54 @@ To create a SonarQube Quality Gate follow this [article](https://tomgregory.com/
                         waitForQualityGate abortPipeline: true
                     }
 	}
+```
+
+## Containerization
+
+This step involves creation of a docker image using a [dockerfile](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/blob/main/Dockerfile) and pushing it into the DockerHub. 
+Before building the docker file lets first create some environment variables.
+
+```groovy
+    environment{
+        APPNAME="stock_screener_ui"
+        RELEASE="1.0.0"
+        DOCKER_USER="suraj01dev"
+        DOCKER_PASS="dockerhub"
+        IMAGE_NAME="${DOCKER_USER}"+"/"+"${APPNAME}"
+        IMAGE_TAG="${RELEASE}"+"-"+"${BUILD_NUMBER}"
+    }
+```
+
+The command to build the Docker image using Dockerfile is
+```bash
+docker build -t stock_screener .
+```
+
+To push the docker image, use the below command
+```bash
+docker push stock_screener
+```
+
+Let's create a Jenkins stage with the above command.
+
+#### Stage Pushing the stock_screener docker image
+```groovy
+        stage("Pushing the stock_screener docker image"){
+            steps{
+                withCredentials([string(credentialsId: 'docker_pass', variable: 'docker_pass_var')]) {
+
+                    sh '''
+                    sudo docker login -u suraj01dev -p ${docker_pass_var}
+                    '''
+
+                    sh '''
+                    sudo docker push ${IMAGE_NAME}:${IMAGE_TAG}
+                    '''
+                
+                        }
+
+            }
+        }
 ```
 
 
