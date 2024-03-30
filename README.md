@@ -176,4 +176,10 @@ sonar-scanner \
   -Dsonar.host.url=http://192.168.122.98:9000 \
   -Dsonar.token=sqp_0a464021d32ab3b6f36214e488ddd6fe892b80b3
 
-  
+  ### Installing SonarQube
+
+  In this project, for simplicity the SonarQube instance is installed in the Jenkins node itself as a container. To run a container let's install docker. 
+
+  ```bash
+	apt-get install docker.io
+  ```
