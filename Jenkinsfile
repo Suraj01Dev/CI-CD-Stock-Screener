@@ -1,4 +1,4 @@
-pipeline{
+    pipeline{
     agent{
         label "node1"
     }
@@ -19,5 +19,18 @@ pipeline{
 		sh "bash stock_screener_test.sh"
             }
         }
+
+        stage('SonarQube Code Analysis') {
+                    steps {
+                        dir("${WORKSPACE}"){
+                        script {
+                            def scannerHome = tool name: 'sonarqube-scanner-latest'
+                            withSonarQubeEnv('sonar_stock_screener') {
+                                sh "${scannerHome}/bin/sonar-scanner"
+                            }
+                        }
+                    }
+                    }
+            }
     }    
 }
