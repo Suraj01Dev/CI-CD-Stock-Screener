@@ -5,7 +5,7 @@ pipeline{
     stages{
         stage('Git Checkout') {
             steps {
-                git 'https://github.com/Suraj01Dev/Stock_Screener_UI'
+                git 'https://github.com/Suraj01Dev/CI-CD-Stock-Screener'
             }
             
 
