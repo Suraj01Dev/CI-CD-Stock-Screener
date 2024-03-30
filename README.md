@@ -266,7 +266,7 @@ Adding the sonar scanner in the Jenkinsfile.
                     steps {
                         dir("${WORKSPACE}"){
                         script {
-                            def scannerHome = tool name: 'sonarqube-scanner-latest'
+                            def scannerHome = tool name: 'sonar_scanner'
                             withSonarQubeEnv('sonar_stock_screener') {
                                 sh "${scannerHome}/bin/sonar-scanner"
                             }
