@@ -64,20 +64,25 @@ pipeline{
         label "node1"
     }
     stages{
-        stage("Clean Workspace"){
-            steps{
-                cleanWs()
+        stage('Clean Workspace') {
+            steps {
+            cleanWs()
             }
         }
         stage('Git Checkout') {
             steps {
-                git 'https://github.com/Suraj01Dev/CI-CD-Stock-Screener'
+                git branch: 'main', url: 'https://github.com/Suraj01Dev/CI-CD-Stock-Screener'
             }
-            
-
         }
     }    
 }
 ```
+
+In the first stage **Clean Workspace**, we clear the workspace using **cleanWs()** step. This clears the workspace for us. In the next stage we create a **Git Checkout** where we clone the **CI-CD-Stock-Screener** repository from GitHub to the Jenkins node.
+
+To verify this let's manually SSH into the Jenkins node, and list the files in the workspace directory.
+
+
+![image](https://github.com/Suraj01Dev/CI-CD-Stock-Screener/assets/120789150/4668fe8f-48b8-4fb7-9df4-72d3c81c8924)
 
 
