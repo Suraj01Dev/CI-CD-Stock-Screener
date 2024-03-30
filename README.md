@@ -284,8 +284,26 @@ docker push stock_screener
 
 Let's create a Jenkins stage with the above command.
 
+
+
+#### Stage: Building the docker image
+```groovy
+ stage("Building docker image"){
+            steps{
+
+                sh '''
+                sudo docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .
+                '''
+
+            }
+        }
+```
+
+
+
 #### Stage: Pushing the stock_screener docker image
 ```groovy
+
         stage("Pushing the stock_screener docker image"){
             steps{
                 withCredentials([string(credentialsId: 'docker_pass', variable: 'docker_pass_var')]) {
@@ -297,7 +315,9 @@ Let's create a Jenkins stage with the above command.
                     sh '''
                     sudo docker push ${IMAGE_NAME}:${IMAGE_TAG}
                     '''
+                
                         }
+
             }
         }
 ```
